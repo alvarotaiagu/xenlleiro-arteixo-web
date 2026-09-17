@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xenlleiro · Arroces al momento en Arteixo</title>
+<meta name="description" content="Xenlleiro, restaurante en Arteixo (A Coruña): arroces elaborados al momento con fondo casero, cocina tradicional con toque moderno y opciones para celíacos y veganos. Desayunos y comidas toda la semana; cenas viernes y sábado.">
+<link rel="canonical" href="https://alvarotaiagu.github.io/xenlleiro-arteixo-web/">
+<link rel="icon" href="assets/img/brand/xenlleiro-marca.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/brand/icon-96.png" type="image/png" sizes="96x96">
+<link rel="apple-touch-icon" href="assets/img/brand/icon-180.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#F5F2EC">
+<meta name="color-scheme" content="light only">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Xenlleiro">
+<meta property="og:title" content="Xenlleiro · Cociña con Xeito · Arteixo">
+<meta property="og:description" content="Arroces al momento con fondo casero, en capa fina. Cocina tradicional con toque moderno en Arteixo, A Coruña.">
+<meta property="og:url" content="https://alvarotaiagu.github.io/xenlleiro-arteixo-web/">
+<meta property="og:image" content="https://alvarotaiagu.github.io/xenlleiro-arteixo-web/assets/img/og-xenlleiro.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Xenlleiro",
+  "slogan": "Cociña con Xeito",
+  "url": "https://alvarotaiagu.github.io/xenlleiro-arteixo-web/",
+  "image": "https://alvarotaiagu.github.io/xenlleiro-arteixo-web/assets/img/og-xenlleiro.jpg",
+  "telephone": "+34881102164",
+  "email": "xenlleiro@gmail.com",
+  "servesCuisine": ["Arroces", "Cocina gallega", "Cocina tradicional"],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rúa Capela, 8",
+    "addressLocality": "Arteixo",
+    "addressRegion": "A Coruña",
+    "postalCode": "15142",
+    "addressCountry": "ES"
+  },
+  "sameAs": ["https://www.instagram.com/xenlleiro"],
+  "paymentAccepted": "Efectivo, tarjeta, contactless",
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], "opens": "09:00", "closes": "17:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Friday", "Saturday"], "opens": "19:30", "closes": "23:30" }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body>
+
+<a class="salto" href="#carta">Saltar a la carta</a>
+
+<div class="cookie-banner" hidden>
+  <p>Esta web no usa cookies de terceros. Solo guardamos en tu navegador que ya viste este aviso; el mapa de Google se carga únicamente si lo pides tú.</p>
+  <button class="cookie-ack" type="button">Entendido</button>
+</div>
+
+<header class="cabecera">
+  <a class="marca" href="#inicio" aria-label="Xenlleiro, inicio">
+    <img class="marca-mark" src="assets/img/brand/xenlleiro-marca.svg" alt="" width="34" height="34">
+    <span class="marca-nombre">Xenlleiro</span>
+  </a>
+  <nav class="nav" aria-label="Secciones">
+    <a href="#cocina">Cocina</a>
+    <a href="#arroces">Los arroces</a>
+    <a href="#carta">Carta</a>
+    <a href="#horario">Cuándo venir</a>
+    <a href="#local">El local</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+  <a class="btn btn-azafran btn-nav magnetico" href="https://wa.me/34617004670" target="_blank" rel="noopener">Reservar</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-movil" aria-label="Abrir menú">
+    <span aria-hidden="true"></span><span aria-hidden="true"></span>
+  </button>
+</header>
+<nav class="nav-movil" id="nav-movil" aria-label="Secciones (móvil)" hidden>
+  <a href="#cocina">Nuestra cocina</a>
+  <a href="#arroces">Los arroces</a>
+  <a href="#carta">La carta</a>
+  <a href="#horario">Cuándo venir</a>
+  <a href="#local">El local</a>
+  <a href="#resenas">Reseñas</a>
+  <a href="#contacto">Contacto y reserva</a>
+</nav>
+
+<main>
+
+<!-- ============ HERO · la paellera vista desde arriba ============ -->
+<section class="hero" id="inicio">
+  <div class="hero-lienzo">
+
+    <h1 class="hero-palabra" data-split-char>Xenlleiro</h1>
+
+    <div class="hero-izq">
+      <p class="hero-xeito"><em>Cociña con Xeito</em></p>
+      <p class="hero-linea">Arroces al momento · fondo casero · capa fina</p>
+    </div>
+
+    <figure class="plato hero-plato">
+      <span class="plato-aro" aria-hidden="true"></span>
+      <span class="plato-aro plato-aro-2" aria-hidden="true"></span>
+      <div class="plato-recorte">
+        <img src="assets/img/photos/arroz-negro-1400.jpg" width="1400" height="1400"
+             alt="Arroz negro con zamburiñas y pulpo, visto desde arriba sobre cerámica moteada." fetchpriority="high" decoding="async">
+      </div>
+      <figcaption class="plato-pie">Arroz negro · chocos en su tinta, pulpo y zamburiñas</figcaption>
+    </figure>
+
+    <div class="hero-der">
+      <p class="hero-cta">
+        <a class="btn btn-azafran magnetico" href="https://wa.me/34617004670" target="_blank" rel="noopener">Reservar por WhatsApp</a>
+        <a class="btn btn-linea magnetico" href="#carta">Ver la carta</a>
+      </p>
+      <p class="hero-nota">Rúa Capela, 8 · Arteixo<br>Desayunos y comidas toda la semana.<br>Cenas, viernes y sábado.</p>
+    </div>
+
+  </div>
+  <p class="hero-scroll" aria-hidden="true"><span></span>Desliza</p>
+</section>
+
+<!-- ============ marquesina ============ -->
+<div class="marquesina" aria-hidden="true">
+  <div class="marquesina-pista">
+    <span class="marquesina-grupo">
+      <em>arroz negro</em><b></b><em>zamburiñas</em><b></b><em>pan bao de churrasco</em><b></b><em>rabo de toro</em><b></b><em>pata de pulpo</em><b></b><em>arroz meloso senyoret</em><b></b><em>rape en salsa verde</em><b></b><em>huevos rotos</em><b></b><em>lubina salvaje</em><b></b><em>arroz vegano</em><b></b>
+    </span>
+    <span class="marquesina-grupo">
+      <em>arroz negro</em><b></b><em>zamburiñas</em><b></b><em>pan bao de churrasco</em><b></b><em>rabo de toro</em><b></b><em>pata de pulpo</em><b></b><em>arroz meloso senyoret</em><b></b><em>rape en salsa verde</em><b></b><em>huevos rotos</em><b></b><em>lubina salvaje</em><b></b><em>arroz vegano</em><b></b>
+    </span>
+  </div>
+</div>
+
+<!-- ============ NUESTRA COCINA ============ -->
+<section class="cocina" id="cocina">
+  <p class="rotulo" data-seccion>Nuestra cocina</p>
+  <div class="cocina-grid" data-seccion>
+    <div class="cocina-texto">
+      <h2 class="titular" data-split-char>Respetar el producto, cuidar los tiempos</h2>
+      <p class="entradilla">Nuestra propuesta nace de la <strong>cocina tradicional con un toque moderno</strong>. Se respeta el producto y se cuidan los tiempos de elaboración en cada plato: el fondo de los arroces se hace en casa, las carnes van a baja temperatura y el pescado entra directo de lonja.</p>
+      <p>Nada sale antes de tiempo. Por eso los arroces se empiezan cuando los pides y tardan lo que tienen que tardar.</p>
+      <p class="pendiente-inline"><strong>[TIEMPO DE ESPERA DE LOS ARROCES PENDIENTE]</strong> — si nos confirmáis los minutos, lo decimos aquí en claro para que nadie se lleve sorpresas.</p>
+    </div>
+    <ul class="cocina-pilares">
+      <li>
+        <span class="pilar-num" aria-hidden="true">01</span>
+        <h3>Fondo casero</h3>
+        <p>La base de todos los arroces se elabora en la cocina del restaurante.</p>
+      </li>
+      <li>
+        <span class="pilar-num" aria-hidden="true">02</span>
+        <h3>Al momento</h3>
+        <p>Cada arroz se arranca con la comanda. Es lo que permite servirlo en capa fina y con el punto justo.</p>
+      </li>
+      <li>
+        <span class="pilar-num" aria-hidden="true">03</span>
+        <h3>Producto de lonja</h3>
+        <p>El pescado del día es una selección fresca directa de lonja, según lo que dé el mercado.</p>
+      </li>
+    </ul>
+  </div>
+
+
+  <div class="cocina-cierre" data-seccion>
+    <figure class="plato cocina-plato">
+      <span class="plato-aro" aria-hidden="true"></span>
+      <span class="plato-aro plato-aro-2" aria-hidden="true"></span>
+      <div class="plato-recorte">
+        <img src="assets/img/photos/zamburinas-900.jpg" width="900" height="900" loading="lazy" decoding="async"
+             alt="Zamburiñas sobre un plato de cerámica estriada, vistas desde arriba.">
+      </div>
+    </figure>
+    <blockquote class="cocina-cita">
+      <p><em>El arroz se mira desde arriba.</em> Por eso se sirve en capa fina: para que se vea el grano, el socarrat y todo lo que lleva encima.</p>
+      <footer>Zamburiñas a la plancha con aliño tradicional de la casa · <span class="archivo">imagen de archivo</span></footer>
+    </blockquote>
+  </div>
+
+  <div class="dietas" data-seccion>
+    <div class="dietas-marca" aria-hidden="true">
+      <svg viewBox="0 0 120 120" width="120" height="120" focusable="false">
+        <circle cx="60" cy="60" r="56" fill="none" stroke="#D99A2B" stroke-width="2"></circle>
+        <circle cx="60" cy="60" r="44" fill="none" stroke="#141414" stroke-width="1" opacity=".35"></circle>
+        <circle cx="60" cy="60" r="32" fill="none" stroke="#141414" stroke-width="1" opacity=".2"></circle>
+        <circle cx="60" cy="60" r="18" fill="#D99A2B" opacity=".15"></circle>
+      </svg>
+    </div>
+    <div class="dietas-texto">
+      <h3>Celíacos y veganos, sin que sea un apaño</h3>
+      <p>Adaptamos la carta con opciones para <strong>personas celíacas</strong> y <strong>veganas</strong>, con la máxima dedicación y seguridad en cada preparación. El <em>arroz vegano</em> es un plato de la carta, no un plato de repuesto. Avísanos al reservar y lo dejamos preparado.</p>
+      <p class="dietas-aviso"><strong>[ALÉRGENOS: LISTADO COMPLETO PENDIENTE]</strong> — falta el detalle plato a plato para poder publicarlo aquí.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOS ARROCES · pila con la paellera fija ============ -->
+<section class="arroces" id="arroces">
+  <header class="arroces-cab" data-seccion>
+    <p class="rotulo">Los arroces</p>
+    <h2 class="titular" data-split-char>Elaborados al momento con fondo casero</h2>
+    <p class="entradilla">Cinco arroces en carta. Todos se sirven en capa fina, como se ven aquí: desde arriba.</p>
+  </header>
+
+  <div class="arroces-grid">
+
+    <div class="arroces-media">
+      <figure class="plato arroz-plato">
+        <span class="plato-aro" aria-hidden="true"></span>
+        <span class="plato-aro plato-aro-2" aria-hidden="true"></span>
+        <div class="plato-recorte">
+          <img class="arroz-img is-activa" data-arroz="1" src="assets/img/photos/arroz-chuleton-1200.jpg" width="1200" height="1200" alt="Arroz con chuletón y setas, visto desde arriba." loading="lazy" decoding="async">
+          <img class="arroz-img" data-arroz="2" src="assets/img/photos/arroz-mixto-1200.jpg" width="1200" height="1200" alt="Arroz mixto con langostinos y calamares, visto desde arriba." loading="lazy" decoding="async">
+          <img class="arroz-img" data-arroz="3" src="assets/img/photos/arroz-negro-1200.jpg" width="1200" height="1200" alt="Arroz negro con pulpo y zamburiñas, visto desde arriba." loading="lazy" decoding="async">
+          <img class="arroz-img" data-arroz="4" src="assets/img/photos/arroz-senyoret-1200.jpg" width="1200" height="1200" alt="Arroz meloso senyoret, visto desde arriba." loading="lazy" decoding="async">
+          <img class="arroz-img" data-arroz="5" src="assets/img/photos/arroz-vegano-1200.jpg" width="1200" height="1200" alt="Arroz vegano de verduras de temporada, visto desde arriba." loading="lazy" decoding="async">
+        </div>
+      </figure>
+      <p class="arroces-indice"><span class="arroces-indice-n">01</span> <span aria-hidden="true">/</span> 05</p>
+      <p class="arroces-archivo">Fotografía de archivo: el restaurante aún no ha enviado la foto propia de cada arroz.</p>
+    </div>
+
+    <ol class="arroz-pila">
+      <li class="arroz-carta" data-arroz-card="1" style="--i:0">
+        <img class="arroz-mini" src="assets/img/photos/arroz-chuleton-560.jpg" width="560" height="560" loading="lazy" decoding="async" alt="Arroz con chuletón y setas, visto desde arriba.">
+        <p class="arroz-num" aria-hidden="true">01</p>
+        <h3 class="arroz-nombre"><em>Arroz con chuletón y setas</em></h3>
+        <p class="arroz-peso">Chuletón de 1,2 kg</p>
+        <p class="arroz-desc">Corte seleccionado servido sobre arroz en capa fina.</p>
+        <p class="precio">[PRECIO PENDIENTE]</p>
+      </li>
+      <li class="arroz-carta" data-arroz-card="2" style="--i:1">
+        <img class="arroz-mini" src="assets/img/photos/arroz-mixto-560.jpg" width="560" height="560" loading="lazy" decoding="async" alt="Arroz mixto con langostinos y calamares, visto desde arriba.">
+        <p class="arroz-num" aria-hidden="true">02</p>
+        <h3 class="arroz-nombre"><em>Arroz mixto</em></h3>
+        <p class="arroz-peso">Mar y montaña</p>
+        <p class="arroz-desc">Pollo o conejo, judías verdes, langostinos y calamares.</p>
+        <p class="precio">[PRECIO PENDIENTE]</p>
+      </li>
+      <li class="arroz-carta" data-arroz-card="3" style="--i:2">
+        <img class="arroz-mini" src="assets/img/photos/arroz-negro-560.jpg" width="560" height="560" loading="lazy" decoding="async" alt="Arroz negro con pulpo y zamburiñas, visto desde arriba.">
+        <p class="arroz-num" aria-hidden="true">03</p>
+        <h3 class="arroz-nombre"><em>Arroz negro</em></h3>
+        <p class="arroz-peso">El de la portada</p>
+        <p class="arroz-desc">Chocos en su tinta, pulpo y zamburiñas.</p>
+        <p class="precio">[PRECIO PENDIENTE]</p>
+      </li>
+      <li class="arroz-carta" data-arroz-card="4" style="--i:3">
+        <img class="arroz-mini" src="assets/img/photos/arroz-senyoret-560.jpg" width="560" height="560" loading="lazy" decoding="async" alt="Arroz meloso senyoret, visto desde arriba.">
+        <p class="arroz-num" aria-hidden="true">04</p>
+        <h3 class="arroz-nombre"><em>Arroz meloso senyoret</em></h3>
+        <p class="arroz-peso">Todo limpio, sin cáscaras</p>
+        <p class="arroz-desc">Rape, langostinos y calamares limpios.</p>
+        <p class="precio">[PRECIO PENDIENTE]</p>
+      </li>
+      <li class="arroz-carta" data-arroz-card="5" style="--i:4">
+        <img class="arroz-mini" src="assets/img/photos/arroz-vegano-560.jpg" width="560" height="560" loading="lazy" decoding="async" alt="Arroz vegano de verduras de temporada, visto desde arriba.">
+        <p class="arroz-num" aria-hidden="true">05</p>
+        <h3 class="arroz-nombre"><em>Arroz vegano</em></h3>
+        <p class="arroz-peso">100 % vegetal</p>
+        <p class="arroz-desc">Selección de verduras frescas de temporada.</p>
+        <p class="precio">[PRECIO PENDIENTE]</p>
+      </li>
+    </ol>
+
+  </div>
+</section>
+
+<!-- ============ LA CARTA ============ -->
+<section class="carta" id="carta">
+  <header class="carta-cab" data-seccion>
+    <p class="rotulo">La carta</p>
+    <h2 class="titular" data-split-char>Para compartir, arroces, carnes y pescados</h2>
+    <p class="entradilla">Esta es la carta que sirve el restaurante. <strong>Los precios aún no están confirmados</strong> y aparecen marcados como pendientes.</p>
+  </header>
+
+
+  <ul class="carta-platos" data-seccion>
+    <li>
+      <a href="#c-compartir">
+        <figure class="plato carta-plato">
+          <span class="plato-aro" aria-hidden="true"></span>
+          <div class="plato-recorte">
+            <img src="assets/img/photos/pulpo-700.jpg" width="700" height="700" loading="lazy" decoding="async"
+                 alt="Pata de pulpo sobre un plato claro, vista desde arriba.">
+          </div>
+        </figure>
+        <p class="carta-plato-pie"><em>Para compartir</em></p>
+      </a>
+    </li>
+    <li>
+      <a href="#c-arroces">
+        <figure class="plato carta-plato">
+          <span class="plato-aro" aria-hidden="true"></span>
+          <div class="plato-recorte">
+            <img src="assets/img/photos/manos-arroz-700.jpg" width="700" height="700" loading="lazy" decoding="async"
+                 alt="Una mano sirve arroz con una cuchara, visto desde arriba.">
+          </div>
+        </figure>
+        <p class="carta-plato-pie"><em>Arroces</em></p>
+      </a>
+    </li>
+    <li>
+      <a href="#c-carnes">
+        <figure class="plato carta-plato">
+          <span class="plato-aro" aria-hidden="true"></span>
+          <div class="plato-recorte">
+            <img src="assets/img/photos/rape-700.jpg" width="700" height="700" loading="lazy" decoding="async"
+                 alt="Pescado blanco en salsa clara sobre plato blanco, visto desde arriba.">
+          </div>
+        </figure>
+        <p class="carta-plato-pie"><em>Carnes y pescados</em></p>
+      </a>
+    </li>
+  </ul>
+
+  <div class="carta-bloques" data-seccion>
+
+    <section class="carta-bloque" aria-labelledby="c-compartir">
+      <h3 class="carta-titulo" id="c-compartir">Para compartir</h3>
+      <hr class="capa-fina">
+      <ul class="platos">
+        <li><h4><em>Fritura mixta</em></h4><p class="plato-desc">Calamar, pulpo, cazón en adobo y croquetas caseras.</p><p class="precio">[PRECIO PENDIENTE]</p></li>
+        <li><h4><em>Pan bao de churrasco</em></h4><p class="plato-desc">Con mayonesa kimchi.</p><p class="precio">[PRECIO PENDIENTE]</p></li>
+        <li><h4><em>Zamburiñas a la plancha</em></h4><p class="plato-desc">Con aliño tradicional de la casa.</p><p class="precio">[PRECIO PENDIENTE]</p></li>
+        <li><h4><em>Pata de pulpo a la plancha</em></h4><p class="plato-desc">Con láminas de papada ibérica y salteado de setas.</p><p class="precio">[PRECIO PENDIENTE]</p></li>
+        <li><h4><em>Huevos rotos de corral</em></h4><p class="plato-desc">Con langostinos y jamón 50 % ibérico.</p><p class="precio">[PRECIO PENDIENTE]</p></li>
+      </ul>
+    </section>
+
+    <section class="carta-bloque" aria-labelledby="c-arroces">
+      <h3 class="carta-titulo" id="c-arroces">Arroces</h3>
+      <p class="carta-nota">Elaborados al momento con fondo casero.</p>
+      <hr class="capa-fina">
+      <ul class="platos">
+        <li><h4><em>Arroz con chuletón (1,2 kg) y setas</em></h4><p class="plato-desc">Corte seleccionado servido sobre arroz en capa fina.</p><p class="precio">[PRECIO PENDIENTE]</p></li>
+        <li><h4><em>Arroz mixto</em></h4><p class="plato-desc">Pollo o conejo, judías verdes, langostinos y calamares.</p><p class="precio">[PRECIO PENDIENTE]</p></li>
+        <li><h4><em>Arroz negro</em></h4><p class="plato-desc">Chocos en su tinta, pulpo y zamburiñas.</p><p class="precio">[PRECIO PENDIENTE]</p></li>
+        <li><h4><em>Arroz meloso senyoret</em></h4><p class="plato-desc">Rape, langostinos y calamares limpios.</p><p class="precio">[PRECIO PENDIENTE]</p></li>
+        <li><h4><em>Arroz vegano</em></h4><p class="plato-desc">Selección de verduras frescas de temporada.</p><p class="precio">[PRECIO PENDIENTE]</p></li>
+      </ul>
+    </section>
+
+    <section class="carta-bloque" aria-labelledby="c-carnes">
+      <h3 class="carta-titulo" id="c-carnes">Carnes y pescados</h3>
+      <hr class="capa-fina">
+      <ul class="platos">
+        <li><h4><em>Rabo de toro a baja temperatura</em></h4><p class="plato-desc">Con muselina de apionabo y zanahorias baby glaseadas.</p><p class="precio">[PRECIO PENDIENTE]</p></li>
+        <li><h4><em>Costillas a baja temperatura</em></h4><p class="plato-desc">Con patatas deluxe especiadas.</p><p class="precio">[PRECIO PENDIENTE]</p></li>
+        <li><h4><em>Rape en salsa verde</em></h4><p class="plato-desc">Con habitas tiernas.</p><p class="precio">[PRECIO PENDIENTE]</p></li>
+        <li><h4><em>Lubina salvaje al horno</em></h4><p class="plato-desc">Sobre cama de patatas panaderas.</p><p class="precio">[PRECIO PENDIENTE]</p></li>
+        <li><h4><em>Pescado del día</em></h4><p class="plato-desc">Selección fresca directa de lonja según mercado.</p><p class="precio">[PRECIO PENDIENTE]</p></li>
+      </ul>
+    </section>
+
+  </div>
+
+  <div class="desayunos" data-seccion>
+    <div class="desayunos-texto">
+      <p class="rotulo">Desayunos</p>
+      <h3>Se desayuna aquí todos los días menos el lunes</h3>
+      <p>Xenlleiro abre a las nueve de la mañana de martes a domingo. Los desayunos se sirven a diario, pero el restaurante todavía no tiene publicada una carta de desayunos.</p>
+      <p class="pendiente-bloque"><strong>[CARTA DE DESAYUNOS PENDIENTE]</strong><br>Pásanos la lista y los precios y se monta con el mismo formato que la carta de comidas.</p>
+    </div>
+    <div class="desayunos-hueco">
+      <div class="hueco hueco-redondo"><span class="hueco-marca">[FOTO DE DESAYUNO PENDIENTE]</span></div>
+    </div>
+  </div>
+
+  <p class="carta-pie">No aparecen postres, carta de vinos ni menú del día porque el restaurante no los tiene publicados: <strong>[POSTRES PENDIENTES]</strong> · <strong>[CARTA DE VINOS PENDIENTE]</strong> · <strong>[MENÚ DEL DÍA PENDIENTE]</strong>.</p>
+</section>
+
+<!-- ============ CUÁNDO VENIR ============ -->
+<section class="horario" id="horario">
+  <header class="horario-cab" data-seccion>
+    <p class="rotulo">Cuándo venir</p>
+    <h2 class="titular" data-split-char>Desayunos y comidas toda la semana. Cenas, viernes y sábado.</h2>
+    <p class="entradilla">Lunes cerrado. El resto de días abrimos a las 9:00 y servimos hasta las 17:00. Viernes y sábado, además, cenas de 19:30 a 23:30.</p>
+  </header>
+
+  <div class="semana" data-seccion>
+    <div class="semana-eje" aria-hidden="true">
+      <span style="--h:9"><i></i>9</span><span style="--h:12"><i></i>12</span><span style="--h:15"><i></i>15</span><span style="--h:18"><i></i>18</span><span style="--h:21"><i></i>21</span><span style="--h:24"><i></i>24</span>
+    </div>
+    <ul class="semana-filas">
+      <li class="dia dia-cerrado" data-dia="1">
+        <span class="dia-nombre">Lunes</span>
+        <span class="dia-pista"><span class="dia-cerrado-txt">Cerrado</span></span>
+      </li>
+      <li class="dia" data-dia="2">
+        <span class="dia-nombre">Martes</span>
+        <span class="dia-pista"><span class="franja franja-dia" style="--i:9;--f:17"></span><span class="sr">De 9:00 a 17:00</span></span>
+      </li>
+      <li class="dia" data-dia="3">
+        <span class="dia-nombre">Miércoles</span>
+        <span class="dia-pista"><span class="franja franja-dia" style="--i:9;--f:17"></span><span class="sr">De 9:00 a 17:00</span></span>
+      </li>
+      <li class="dia" data-dia="4">
+        <span class="dia-nombre">Jueves</span>
+        <span class="dia-pista"><span class="franja franja-dia" style="--i:9;--f:17"></span><span class="sr">De 9:00 a 17:00</span></span>
+      </li>
+      <li class="dia dia-doble" data-dia="5">
+        <span class="dia-nombre">Viernes</span>
+        <span class="dia-pista"><span class="franja franja-dia" style="--i:9;--f:17"></span><span class="franja franja-noche" style="--i:19.5;--f:23.5"></span><span class="sr">De 9:00 a 17:00 y de 19:30 a 23:30</span></span>
+      </li>
+      <li class="dia dia-doble" data-dia="6">
+        <span class="dia-nombre">Sábado</span>
+        <span class="dia-pista"><span class="franja franja-dia" style="--i:9;--f:17"></span><span class="franja franja-noche" style="--i:19.5;--f:23.5"></span><span class="sr">De 9:00 a 17:00 y de 19:30 a 23:30</span></span>
+      </li>
+      <li class="dia" data-dia="0">
+        <span class="dia-nombre">Domingo</span>
+        <span class="dia-pista"><span class="franja franja-dia" style="--i:9;--f:17"></span><span class="sr">De 9:00 a 17:00</span></span>
+      </li>
+    </ul>
+    <p class="semana-leyenda">
+      <span><i class="clave clave-dia" aria-hidden="true"></i> Desayunos y comidas · 9:00–17:00</span>
+      <span><i class="clave clave-noche" aria-hidden="true"></i> Cenas · 19:30–23:30, solo viernes y sábado</span>
+    </p>
+  </div>
+
+  <p class="horario-hoy" data-hoy hidden></p>
+</section>
+
+<!-- ============ EL LOCAL ============ -->
+<section class="local" id="local">
+  <header class="local-cab" data-seccion>
+    <p class="rotulo">El local</p>
+    <h2 class="titular" data-split-char>Madera clara, mármol y luz de ventanal</h2>
+    <p class="entradilla">Un local nuevo y luminoso en la Rúa Capela, con terraza para cuando acompaña el tiempo. Se admiten mascotas, hay wifi gratis, aire acondicionado y zona de fumadores.</p>
+  </header>
+
+  <ul class="servicios" data-seccion>
+    <li>Terraza</li>
+    <li>Se admiten mascotas</li>
+    <li>Wifi gratis</li>
+    <li>Aire acondicionado</li>
+    <li>Zona de fumadores</li>
+    <li>Efectivo, tarjeta y contactless</li>
+  </ul>
+
+  <div class="galeria" data-seccion>
+    <figure class="galeria-hueco">
+      <div class="hueco tiene-foto">
+        <img src="assets/img/photos/local-barra-1100.jpg" width="1100" height="825" loading="lazy" decoding="async"
+             alt="Barra clara de un local con luz de día.">
+        <span class="hueco-marca">Archivo · falta la foto real</span>
+      </div>
+      <figcaption>La barra de mármol</figcaption>
+    </figure>
+    <figure class="galeria-hueco">
+      <div class="hueco tiene-foto">
+        <img src="assets/img/photos/local-sala-1100.jpg" width="1100" height="825" loading="lazy" decoding="async"
+             alt="Sala de restaurante luminosa con mesas de madera clara y ventanales.">
+        <span class="hueco-marca">Archivo · falta la foto real</span>
+      </div>
+      <figcaption>Sala y ventanales</figcaption>
+    </figure>
+    <figure class="galeria-hueco">
+      <div class="hueco tiene-foto">
+        <img src="assets/img/photos/local-ventanal-1100.jpg" width="1100" height="825" loading="lazy" decoding="async"
+             alt="Mesa de madera junto a un ventanal con luz de día.">
+        <span class="hueco-marca">Archivo · falta la foto real</span>
+      </div>
+      <figcaption>Mesa junto al ventanal</figcaption>
+    </figure>
+    <figure class="galeria-hueco">
+      <div class="hueco tiene-foto">
+        <img src="assets/img/photos/local-terraza-1100.jpg" width="1100" height="825" loading="lazy" decoding="async"
+             alt="Terraza con mesas y sillas al aire libre con luz de día.">
+        <span class="hueco-marca">Archivo · falta la foto real</span>
+      </div>
+      <figcaption>La terraza</figcaption>
+    </figure>
+    <figure class="galeria-hueco">
+      <div class="hueco tiene-foto">
+        <img src="assets/img/photos/local-flores-1100.jpg" width="1100" height="825" loading="lazy" decoding="async"
+             alt="Mesa de madera junto a un ventanal con una planta.">
+        <span class="hueco-marca">Archivo · falta la foto real</span>
+      </div>
+      <figcaption>Luz de la ventana</figcaption>
+    </figure>
+    <figure class="galeria-hueco">
+      <div class="hueco"><span class="hueco-marca">[FOTO DE LA COCINA PENDIENTE]</span></div>
+      <figcaption>La cocina</figcaption>
+    </figure>
+  </div>
+  <p class="galeria-nota">Seis huecos reservados para las fotos reales del local. Cinco llevan de momento <strong>imágenes de archivo que no son de Xenlleiro</strong>, elegidas solo por parecido de luz y materiales; el sexto se ha dejado vacío a propósito. Se sustituyen todas en cuanto lleguen las fotos del restaurante.</p>
+
+  <ul class="datos-huecos">
+    <li><strong>[AÑO DE APERTURA PENDIENTE]</strong><span>Cuántos años lleva abierto el restaurante.</span></li>
+    <li><strong>[CAPACIDAD Y Nº DE MESAS PENDIENTE]</strong><span>Comedor, barra y terraza.</span></li>
+    <li><strong>[EQUIPO DE COCINA Y SALA PENDIENTE]</strong><span>Quién está detrás de los arroces.</span></li>
+  </ul>
+</section>
+
+<!-- ============ RESEÑAS ============ -->
+<section class="resenas" id="resenas">
+  <p class="rotulo" data-seccion>Lo que dicen</p>
+  <div class="resenas-nota" data-seccion>
+    <p class="resenas-valor"><span class="resenas-cifra" data-contador data-valor="">[VALORACIÓN GOOGLE PENDIENTE]</span></p>
+    <p class="resenas-sub">sobre <strong>[Nº RESEÑAS PENDIENTE]</strong> reseñas en Google</p>
+    <p class="resenas-aviso">No se publica aquí una nota que no se haya podido comprobar. En cuanto llegue el enlace de la ficha de Google, aparecen la valoración real y el número de reseñas, con el contador animado ya preparado.</p>
+  </div>
+  <ul class="resenas-lista" data-seccion>
+    <li><blockquote><p>[TEXTO DE RESEÑA PENDIENTE]</p></blockquote><p class="resena-firma">[NOMBRE PENDIENTE] · Google</p></li>
+    <li><blockquote><p>[TEXTO DE RESEÑA PENDIENTE]</p></blockquote><p class="resena-firma">[NOMBRE PENDIENTE] · Google</p></li>
+    <li><blockquote><p>[TEXTO DE RESEÑA PENDIENTE]</p></blockquote><p class="resena-firma">[NOMBRE PENDIENTE] · Google</p></li>
+  </ul>
+</section>
+
+<!-- ============ CONTACTO ============ -->
+<section class="contacto" id="contacto">
+  <div class="contacto-grid" data-seccion>
+    <div class="contacto-texto">
+      <p class="rotulo">Contacto y reserva</p>
+      <h2 class="titular" data-split-char>Reserva por WhatsApp</h2>
+      <p class="entradilla">Los arroces se hacen al momento: si vais a ser varios, avisar antes ayuda a tenerlo todo listo. Dinos día, hora, cuántos sois y si hay alguna celiaquía o dieta vegana en la mesa.</p>
+
+      <p class="contacto-botones">
+        <a class="btn btn-azafran magnetico" href="https://wa.me/34617004670" target="_blank" rel="noopener">Reservar por WhatsApp · 617 00 46 70</a>
+        <a class="btn btn-linea magnetico" href="tel:+34881102164">Llamar · 881 10 21 64</a>
+      </p>
+
+      <dl class="contacto-datos">
+        <div><dt>Dirección</dt><dd>Rúa Capela, 8<br>15142 Arteixo, A Coruña</dd></div>
+        <div><dt>Teléfono</dt><dd><a href="tel:+34881102164">881 10 21 64</a></dd></div>
+        <div><dt>WhatsApp</dt><dd><a href="https://wa.me/34617004670" target="_blank" rel="noopener">617 00 46 70</a></dd></div>
+        <div><dt>Email</dt><dd><a href="mailto:xenlleiro@gmail.com">xenlleiro@gmail.com</a></dd></div>
+        <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/xenlleiro" target="_blank" rel="noopener">@xenlleiro</a></dd></div>
+        <div><dt>Horario</dt><dd>Lunes cerrado<br>Martes a domingo, 9:00–17:00<br>Viernes y sábado, también 19:30–23:30</dd></div>
+      </dl>
+
+      <p class="contacto-pendiente"><strong>[RESERVA ONLINE PENDIENTE]</strong> — hoy la reserva es por WhatsApp o teléfono. Si más adelante se contrata un sistema de reservas, se conecta a este mismo botón.</p>
+    </div>
+
+    <div class="contacto-mapa">
+      <div class="mapa-caja">
+        <button class="map-consent" type="button">
+          <span class="map-consent-t">Ver el mapa</span>
+          <span class="map-consent-s">Se carga desde Google Maps solo si pulsas aquí. Hasta entonces, esta web no contacta con terceros.</span>
+        </button>
+      </div>
+      <p class="mapa-pie"><a href="https://www.google.com/maps/search/?api=1&amp;query=Xenlleiro%2C+R%C3%BAa+Capela+8%2C+15142+Arteixo" target="_blank" rel="noopener">Abrir en Google Maps ↗</a></p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="pie-marca">
+    <img src="assets/img/brand/xenlleiro-marca.svg" alt="" width="40" height="40">
+    <p><strong>Xenlleiro</strong> · <em>Cociña con Xeito</em><br>Rúa Capela, 8 · 15142 Arteixo, A Coruña</p>
+  </div>
+  <nav class="pie-nav" aria-label="Pie">
+    <a href="#cocina">Cocina</a>
+    <a href="#arroces">Los arroces</a>
+    <a href="#carta">Carta</a>
+    <a href="#horario">Horario</a>
+    <a href="#contacto">Contacto</a>
+    <a href="https://www.instagram.com/xenlleiro" target="_blank" rel="noopener">Instagram</a>
+  </nav>
+  <p class="pie-nota">Titular del establecimiento: <strong>[NOMBRE DEL CHEF/PROPIETARIO A CONFIRMAR]</strong>. Sitio sin cookies de terceros: el mapa solo se carga si lo pides. El wordmark «Xenlleiro» es una propuesta provisional. Las fotografías marcadas «archivo» son imágenes de banco y no corresponden a los platos ni al local de Xenlleiro.</p>
+</footer>
+
+<a class="call-fab" href="https://wa.me/34617004670" target="_blank" rel="noopener" aria-label="Reservar por WhatsApp en el 617 00 46 70"><span aria-hidden="true">✆</span> Reservar</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.26/dist/lenis.min.js"></script>
+<script src="js/main.js?v=1"></script>
+</body>
+</html>

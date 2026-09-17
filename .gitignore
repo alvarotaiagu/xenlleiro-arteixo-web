@@ -1,0 +1,7 @@
+scripts/_tmp/
+scripts/photos_src/
+scripts/fonts/
+scripts/contact_sheets/
+scripts/_*.html
+scripts/_*.png
+scripts/*.log

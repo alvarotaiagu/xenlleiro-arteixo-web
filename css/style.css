@@ -1,0 +1,1279 @@
+/* ============================================================
+   Xenlleiro · Arteixo (A Coruña)
+   Primera plantilla del taller para restaurante de arroces.
+   Lenguaje propio: CENITAL. El círculo es el plato visto desde
+   arriba, las líneas finas concéntricas son la "capa fina" y el
+   azafrán es el único acento. Modo claro siempre (ver
+   color-scheme en el <head>): no hay tema oscuro a propósito,
+   porque el local es nuevo y luminoso.
+   Nada de día/noche, blob, órbitas, brasas, espiral ni flor:
+   eso ya es de otras plantillas de la carpeta.
+   ============================================================ */
+
+:root {
+  /* cerámica moteada */
+  --ceramica: #F5F2EC;
+  --ceramica-2: #FBFAF6;
+  --ceramica-3: #EAE5DA;
+  /* tinta de choco */
+  --tinta: #141414;
+  --tinta-2: #35322D;
+  --tinta-3: #6E6A61;
+  /* azafrán: acento único */
+  --azafran: #D99A2B;
+  --azafran-2: #B87D18;
+  --azafran-tenue: #F3E3C5;
+  /* madera clara del local */
+  --madera: #C9B08C;
+  --madera-tenue: #E7DCC8;
+
+  --linea: rgba(20, 20, 20, 0.14);
+  --linea-suave: rgba(20, 20, 20, 0.07);
+
+  --serif: "Instrument Serif", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --sans: "Figtree", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --nav-h: 4.25rem;
+  --gutter: clamp(1.15rem, 5vw, 5rem);
+  --ancho: 78rem;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* radio del recorte circular; el JS lo anima de 0 a 50 */
+  --rev: 50;
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: auto; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+body {
+  margin: 0;
+  color: var(--tinta-2);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.62;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  /* cerámica moteada: motas estáticas en CSS, sin canvas ni imagen */
+  background-color: var(--ceramica);
+  background-image:
+    radial-gradient(circle at 15% 22%, rgba(20, 20, 20, 0.055) 0 1px, transparent 1.3px),
+    radial-gradient(circle at 63% 8%, rgba(20, 20, 20, 0.04) 0 1.2px, transparent 1.5px),
+    radial-gradient(circle at 82% 55%, rgba(201, 176, 140, 0.34) 0 1.4px, transparent 1.7px),
+    radial-gradient(circle at 37% 78%, rgba(20, 20, 20, 0.045) 0 1px, transparent 1.3px),
+    radial-gradient(circle at 92% 90%, rgba(20, 20, 20, 0.03) 0 1px, transparent 1.2px),
+    radial-gradient(circle at 8% 62%, rgba(201, 176, 140, 0.28) 0 1.2px, transparent 1.5px);
+  background-size: 190px 190px, 263px 263px, 311px 311px, 223px 223px, 171px 171px, 247px 247px;
+  background-attachment: scroll;
+}
+
+img, svg { display: block; max-width: 100%; }
+img { height: auto; }
+h1, h2, h3, h4, p, dl, dd, figure, blockquote, ul, ol { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+button { font: inherit; color: inherit; cursor: pointer; background: none; border: 0; }
+a { color: inherit; text-decoration-color: rgba(20, 20, 20, 0.25); text-underline-offset: 0.2em; }
+a:hover { text-decoration-color: var(--azafran); }
+em { font-style: italic; }
+hr { border: 0; }
+:focus-visible { outline: 2px solid var(--azafran-2); outline-offset: 3px; border-radius: 3px; }
+
+.sr {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.salto {
+  position: absolute; left: -999px; top: 0; z-index: 200;
+  background: var(--tinta); color: var(--ceramica); padding: 0.7rem 1.1rem;
+}
+.salto:focus { left: 0.5rem; top: 0.5rem; }
+
+/* ---------- Tipografía base ---------- */
+.titular {
+  font-family: var(--serif);
+  font-weight: 400;
+  color: var(--tinta);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  font-size: clamp(2.1rem, 5.2vw, 4.1rem);
+  text-wrap: balance;
+}
+.rotulo {
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--azafran-2);
+  margin-bottom: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.rotulo::before {
+  content: "";
+  width: 0.85rem; height: 0.85rem; flex: none;
+  border: 1px solid var(--azafran);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 2px var(--ceramica), inset 0 0 0 3px var(--azafran-tenue);
+}
+.entradilla {
+  font-size: clamp(1.06rem, 1.5vw, 1.24rem);
+  line-height: 1.55;
+  color: var(--tinta-2);
+  max-width: 44ch;
+}
+.entradilla strong { font-weight: 600; color: var(--tinta); }
+
+/* separador "capa fina": tres hairlines concéntricas */
+.capa-fina {
+  height: 7px;
+  margin: 1.4rem 0 1.6rem;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--linea) 0 1px,
+    transparent 1px 3px
+  );
+  background-size: 100% 7px;
+  background-repeat: no-repeat;
+}
+
+/* marca de dato pendiente: honesta y visible, nunca disimulada */
+.precio,
+.pendiente-bloque,
+.pendiente-inline,
+.dietas-aviso,
+.contacto-pendiente,
+.hueco-marca,
+.datos-huecos strong {
+  font-family: var(--sans);
+  font-variant-numeric: tabular-nums;
+}
+.precio {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--azafran-2);
+  border: 1px dashed var(--azafran);
+  border-radius: 999px;
+  padding: 0.18rem 0.62rem;
+  white-space: nowrap;
+  background: rgba(217, 154, 43, 0.06);
+}
+.pendiente-bloque, .pendiente-inline, .dietas-aviso, .contacto-pendiente {
+  font-size: 0.9rem;
+  color: var(--tinta-3);
+  border-left: 2px solid var(--azafran);
+  padding-left: 0.9rem;
+  margin-top: 1.1rem;
+  line-height: 1.5;
+}
+.pendiente-bloque strong, .pendiente-inline strong,
+.dietas-aviso strong, .contacto-pendiente strong { color: var(--azafran-2); }
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.005em;
+  padding: 0.82rem 1.5rem;
+  border-radius: 999px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease),
+              border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.btn-azafran {
+  background: var(--azafran);
+  color: var(--tinta);
+  box-shadow: 0 1px 0 rgba(20, 20, 20, 0.08);
+}
+.btn-azafran:hover { background: var(--azafran-2); color: var(--ceramica-2); }
+.btn-linea {
+  border: 1px solid var(--tinta);
+  color: var(--tinta);
+}
+.btn-linea:hover { background: var(--tinta); color: var(--ceramica); }
+.magnetico { will-change: transform; }
+
+/* ---------- Aviso de cookies ---------- */
+/* OJO: nada de display:flex aquí. Ganaría a [hidden] y el botón
+   "Entendido" parecería no hacer nada. Se maqueta con grid dentro. */
+.cookie-banner {
+  position: fixed;
+  inset: auto 1rem 1rem 1rem;
+  z-index: 120;
+  background: var(--tinta);
+  color: var(--ceramica);
+  border-radius: 14px;
+  padding: 1rem 1.15rem;
+  box-shadow: 0 14px 40px rgba(20, 20, 20, 0.28);
+  max-width: 44rem;
+  margin-inline: auto;
+}
+.cookie-banner[hidden] { display: none; }
+.cookie-banner > p { font-size: 0.88rem; line-height: 1.45; margin-bottom: 0.7rem; }
+.cookie-ack {
+  background: var(--azafran);
+  color: var(--tinta);
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 0.5rem 1.15rem;
+  border-radius: 999px;
+}
+.cookie-ack:hover { background: var(--ceramica); }
+
+/* ---------- Cabecera ---------- */
+.cabecera {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 var(--gutter);
+  background: rgba(245, 242, 236, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.35s var(--ease), background-color 0.35s var(--ease);
+}
+.cabecera.is-scrolled { border-bottom-color: var(--linea); }
+.marca {
+  display: flex; align-items: center; gap: 0.6rem;
+  text-decoration: none; margin-right: auto;
+}
+.marca-mark { width: 34px; height: 34px; }
+.marca-nombre {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  color: var(--tinta);
+  letter-spacing: -0.01em;
+}
+.nav { display: flex; gap: 1.6rem; }
+.nav a {
+  font-size: 0.88rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--tinta-2);
+  position: relative;
+  padding-bottom: 2px;
+}
+.nav a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+  height: 1px; background: var(--azafran);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.35s var(--ease);
+}
+.nav a:hover::after, .nav a.is-activo::after { transform: scaleX(1); }
+.nav a.is-activo { color: var(--tinta); }
+.btn-nav { padding: 0.55rem 1.15rem; font-size: 0.86rem; }
+.nav-toggle { display: none; width: 42px; height: 42px; position: relative; }
+.nav-toggle span {
+  position: absolute; left: 10px; right: 10px; height: 1.5px;
+  background: var(--tinta);
+  transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+.nav-toggle span:nth-child(1) { top: 17px; }
+.nav-toggle span:nth-child(2) { top: 24px; }
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(3.5px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { transform: translateY(-3.5px) rotate(-45deg); }
+
+.nav-movil {
+  position: fixed;
+  top: var(--nav-h); left: 0; right: 0;
+  z-index: 99;
+  background: var(--ceramica-2);
+  border-bottom: 1px solid var(--linea);
+  padding: 1rem var(--gutter) 1.6rem;
+}
+.nav-movil[hidden] { display: none; }
+.nav-movil a {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.55rem;
+  color: var(--tinta);
+  text-decoration: none;
+  padding: 0.42rem 0;
+  border-bottom: 1px solid var(--linea-suave);
+}
+
+/* ============================================================
+   HERO · la paellera vista desde arriba
+   ============================================================ */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  padding: calc(var(--nav-h) + clamp(1rem, 4vh, 3rem)) var(--gutter) 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.hero-lienzo {
+  width: 100%;
+  max-width: var(--ancho);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-areas:
+    "palabra palabra palabra"
+    "izq     plato   der";
+  align-items: center;
+  column-gap: clamp(1rem, 3vw, 3rem);
+  row-gap: clamp(0.5rem, 2vh, 1.6rem);
+}
+
+.hero-palabra {
+  grid-area: palabra;
+  justify-self: center;
+  font-family: var(--serif);
+  font-weight: 400;
+  color: var(--tinta);
+  font-size: clamp(3.4rem, 15.5vw, 13.5rem);
+  line-height: 0.86;
+  letter-spacing: -0.028em;
+  text-align: center;
+  /* el plato sube sobre la línea base: las letras se hunden tras el borde */
+  margin-bottom: clamp(-2.6rem, -3.4vw, -1rem);
+}
+
+.hero-izq { grid-area: izq; justify-self: end; text-align: right; max-width: 22rem; }
+.hero-der { grid-area: der; justify-self: start; text-align: left; max-width: 20rem; }
+
+.hero-xeito {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3.1vw, 2.5rem);
+  line-height: 1.1;
+  color: var(--tinta);
+}
+.hero-xeito em { font-style: italic; }
+.hero-linea {
+  margin-top: 0.8rem;
+  text-wrap: balance;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+  color: var(--tinta-3);
+}
+.hero-cta { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+.hero-nota {
+  margin-top: 1.1rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--tinta-3);
+}
+
+.hero-scroll {
+  position: absolute;
+  left: 50%; bottom: 1.4rem;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--tinta-3);
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.hero-scroll span {
+  width: 1px; height: 26px;
+  background: linear-gradient(to bottom, var(--azafran), transparent);
+}
+
+/* ---------- el plato (componente compartido) ---------- */
+.plato {
+  position: relative;
+  width: var(--plato, clamp(15rem, 40vw, 33rem));
+  aspect-ratio: 1;
+  isolation: isolate;
+}
+.plato-recorte {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  clip-path: circle(calc(var(--rev) * 1%) at 50% 50%);
+  background: var(--ceramica-3);
+  box-shadow: 0 22px 60px -28px rgba(20, 20, 20, 0.5);
+}
+.plato-recorte img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+/* aros concéntricos: la "capa fina" alrededor del plato */
+.plato-aro {
+  position: absolute;
+  inset: -3.2%;
+  border: 1px solid var(--linea);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 2;
+}
+.plato-aro-2 {
+  inset: -7.4%;
+  border-color: rgba(217, 154, 43, 0.45);
+}
+.plato-pie {
+  position: absolute;
+  left: 50%; bottom: -3.1rem;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--tinta-3);
+}
+.hero-plato { grid-area: plato; --plato: clamp(15rem, 38vw, 31rem); z-index: 3; }
+
+/* ---------- marquesina ---------- */
+.marquesina {
+  overflow: hidden;
+  border-top: 1px solid var(--linea);
+  border-bottom: 1px solid var(--linea);
+  padding: 0.85rem 0;
+  background: var(--ceramica-2);
+}
+.marquesina-pista {
+  display: flex;
+  width: max-content;
+  animation: desliza 56s linear infinite;
+}
+.marquesina-grupo {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  padding-right: 1.6rem;
+}
+.marquesina em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.25rem, 2.3vw, 1.85rem);
+  color: var(--tinta);
+  white-space: nowrap;
+}
+.marquesina b {
+  width: 7px; height: 7px; flex: none;
+  border: 1px solid var(--azafran);
+  border-radius: 50%;
+}
+@keyframes desliza {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+/* ============================================================
+   Secciones
+   ============================================================ */
+section > .rotulo,
+.cocina, .arroces, .carta, .horario, .local, .resenas, .contacto {
+  max-width: var(--ancho);
+  margin-inline: auto;
+}
+.cocina, .arroces, .carta, .horario, .local, .resenas, .contacto {
+  padding: clamp(4.5rem, 10vh, 8.5rem) var(--gutter);
+}
+
+/* ---------- Nuestra cocina ---------- */
+.cocina-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+.cocina-texto .titular { margin-bottom: 1.4rem; }
+.cocina-texto .entradilla { margin-bottom: 1rem; max-width: 46ch; }
+.cocina-texto > p:not(.entradilla):not(.pendiente-inline) { color: var(--tinta-3); max-width: 46ch; }
+
+.cocina-pilares { display: grid; gap: 1.6rem; padding-top: 0.5rem; }
+.cocina-pilares li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 1.1rem;
+  align-items: baseline;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--linea-suave);
+}
+.cocina-pilares li:last-child { border-bottom: 0; padding-bottom: 0; }
+.pilar-num {
+  grid-row: 1 / 3;
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  color: var(--azafran);
+  line-height: 1;
+}
+.cocina-pilares h3 {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--tinta);
+  line-height: 1.15;
+  margin-bottom: 0.25rem;
+}
+.cocina-pilares p { font-size: 0.95rem; color: var(--tinta-3); }
+
+/* celíacos y veganos: bloque propio, no una nota al pie */
+.dietas {
+  margin-top: clamp(3rem, 7vh, 5rem);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3.2rem);
+  align-items: center;
+  background: var(--ceramica-2);
+  border: 1px solid var(--linea);
+  border-radius: 20px;
+  padding: clamp(1.6rem, 4vw, 2.8rem);
+}
+.dietas-marca svg { width: clamp(72px, 10vw, 120px); height: auto; }
+.dietas-texto h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  color: var(--tinta);
+  line-height: 1.08;
+  margin-bottom: 0.8rem;
+}
+.dietas-texto p { max-width: 58ch; }
+.dietas-texto strong { color: var(--tinta); font-weight: 600; }
+
+/* ---------- Los arroces ---------- */
+.arroces-cab { max-width: 46rem; margin-bottom: clamp(2.5rem, 6vh, 4.5rem); }
+.arroces-cab .titular { margin-bottom: 1.1rem; }
+
+.arroces-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+.arroces-media {
+  position: sticky;
+  top: calc(var(--nav-h) + 3.2rem);
+  align-self: start;
+  display: grid;
+  justify-items: center;
+  gap: 2.4rem;
+}
+.arroz-plato { --plato: min(38vw, 26rem); }
+.arroz-plato .plato-recorte { background: var(--ceramica-3); }
+.arroz-img { opacity: 0; transition: opacity 0.55s var(--ease); }
+.arroz-img.is-activa { opacity: 1; }
+.arroces-indice {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  color: var(--tinta-3);
+  letter-spacing: 0.08em;
+}
+.arroces-indice-n { color: var(--azafran-2); }
+.arroces-archivo {
+  font-size: 0.76rem;
+  color: var(--tinta-3);
+  text-align: center;
+  max-width: 28ch;
+  line-height: 1.4;
+}
+
+/* pila: el <li> es el pegajoso y el margen inferior es el recorrido.
+   Nada de min-height en el <li> con la tarjeta pegajosa dentro:
+   eso deja tarjetas fantasma. */
+.arroz-pila { display: block; padding-top: 0.5rem; }
+.arroz-carta {
+  position: sticky;
+  top: calc(var(--nav-h) + 3.2rem + var(--i, 0) * 14px);
+  margin-bottom: 46vh;
+  background: var(--ceramica-2);
+  border: 1px solid var(--linea);
+  border-radius: 20px;
+  padding: clamp(1.5rem, 3.4vw, 2.4rem);
+  box-shadow: 0 18px 44px -34px rgba(20, 20, 20, 0.6);
+  display: grid;
+  gap: 0.35rem;
+}
+.arroz-carta:last-child { margin-bottom: 0; }
+.arroz-mini { display: none; }
+.arroz-num {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  color: var(--azafran);
+  letter-spacing: 0.1em;
+}
+.arroz-nombre {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.8rem, 3.6vw, 2.7rem);
+  line-height: 1.04;
+  color: var(--tinta);
+}
+.arroz-nombre em { font-style: italic; }
+.arroz-peso {
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--madera);
+  font-weight: 600;
+}
+.arroz-desc { color: var(--tinta-3); margin-top: 0.3rem; }
+.arroz-carta .precio { justify-self: start; margin-top: 0.9rem; }
+
+
+/* cierre de cocina: plato cenital + cita */
+.cocina-cierre {
+  margin-top: clamp(3rem, 7vh, 5rem);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(1.8rem, 5vw, 4rem);
+  align-items: center;
+}
+.cocina-plato { --plato: clamp(11rem, 24vw, 19rem); }
+.cocina-cita p {
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 2.8vw, 2.1rem);
+  line-height: 1.22;
+  color: var(--tinta);
+  max-width: 24ch;
+}
+.cocina-cita p em { font-style: italic; color: var(--azafran-2); }
+.cocina-cita footer {
+  margin-top: 1.1rem;
+  font-size: 0.8rem;
+  color: var(--tinta-3);
+  letter-spacing: 0.04em;
+}
+.archivo {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.66rem;
+  color: var(--madera);
+  font-weight: 600;
+}
+
+/* tres platos cenitales encabezando la carta */
+.carta-platos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 4vw, 3rem);
+  margin-bottom: clamp(2.5rem, 6vh, 4rem);
+  justify-items: center;
+}
+.carta-platos a {
+  display: grid;
+  justify-items: center;
+  gap: 1.1rem;
+  text-decoration: none;
+}
+.carta-plato { --plato: min(22vw, 15rem); }
+.carta-plato .plato-recorte {
+  transition: transform 0.5s var(--ease);
+}
+.carta-platos a:hover .plato-recorte { transform: scale(1.03); }
+.carta-plato-pie {
+  font-family: var(--serif);
+  font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+  color: var(--tinta);
+  text-align: center;
+}
+.carta-plato-pie em { font-style: italic; }
+.carta-platos a:hover .carta-plato-pie { color: var(--azafran-2); }
+
+/* ---------- La carta ---------- */
+.carta-cab { max-width: 48rem; margin-bottom: clamp(2.5rem, 6vh, 4rem); }
+.carta-cab .titular { margin-bottom: 1.1rem; }
+.carta-bloques {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+  gap: clamp(2rem, 5vw, 3.6rem);
+  align-items: start;
+}
+.carta-titulo {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.7rem, 3vw, 2.2rem);
+  color: var(--tinta);
+  line-height: 1.1;
+}
+.carta-nota {
+  font-size: 0.82rem;
+  color: var(--azafran-2);
+  margin-top: 0.3rem;
+  font-style: italic;
+}
+.platos { display: grid; gap: 1.5rem; }
+.platos li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+}
+/* colocación explícita: nombre a la izquierda, precio a la derecha en la
+   misma línea, descripción debajo ocupando las dos columnas. Sin esto el
+   precio cae solo en una fila y la píldora se estira de lado a lado. */
+.platos h4 { grid-column: 1; grid-row: 1; }
+.platos .plato-desc { grid-column: 1 / -1; grid-row: 2; }
+.platos .precio { grid-column: 1; grid-row: 3; justify-self: start; margin-top: 0.5rem; }
+.platos h4 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.32rem;
+  line-height: 1.2;
+  color: var(--tinta);
+}
+.platos h4 em { font-style: italic; }
+.plato-desc {
+  font-size: 0.92rem;
+  color: var(--tinta-3);
+  margin-top: 0.15rem;
+  max-width: 42ch;
+}
+
+
+/* desayunos */
+.desayunos {
+  margin-top: clamp(3rem, 7vh, 5rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+  border-top: 1px solid var(--linea);
+  padding-top: clamp(2.2rem, 5vh, 3.5rem);
+}
+.desayunos-texto h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+  color: var(--tinta);
+  line-height: 1.08;
+  margin-bottom: 0.9rem;
+}
+.desayunos-texto > p { color: var(--tinta-3); max-width: 48ch; }
+.desayunos-hueco { display: grid; place-items: center; }
+.carta-pie {
+  margin-top: clamp(2.2rem, 5vh, 3.5rem);
+  font-size: 0.86rem;
+  color: var(--tinta-3);
+  border-top: 1px solid var(--linea-suave);
+  padding-top: 1.2rem;
+}
+.carta-pie strong { color: var(--azafran-2); }
+
+/* hueco de foto pendiente */
+.hueco {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: 1px dashed var(--madera);
+  border-radius: 14px;
+  background:
+    repeating-linear-gradient(135deg, rgba(201, 176, 140, 0.13) 0 10px, transparent 10px 20px),
+    var(--ceramica-2);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  overflow: hidden;
+}
+.hueco-redondo { aspect-ratio: 1; border-radius: 50%; }
+.hueco-marca {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--madera);
+  text-align: center;
+  line-height: 1.4;
+}
+.hueco img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hueco.tiene-foto { border-style: solid; border-color: var(--linea); }
+.hueco.tiene-foto .hueco-marca {
+  position: absolute;
+  left: 0.55rem; bottom: 0.55rem;
+  z-index: 2;
+  background: rgba(20, 20, 20, 0.72);
+  color: var(--ceramica);
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+}
+
+/* ---------- Cuándo venir ---------- */
+.horario-cab { max-width: 52rem; margin-bottom: clamp(2.5rem, 6vh, 4rem); }
+.horario-cab .titular { margin-bottom: 1.1rem; }
+
+/* pieza gráfica: cada día es una línea de 8:00 a 24:00 */
+.semana {
+  --ini: 8;
+  --fin: 24;
+  border-top: 1px solid var(--linea);
+  padding-top: 1.1rem;
+}
+.semana-eje {
+  position: relative;
+  height: 1.2rem;
+  margin-left: clamp(5rem, 12vw, 8.5rem);
+  font-size: 0.7rem;
+  color: var(--tinta-3);
+  letter-spacing: 0.08em;
+}
+.semana-eje span {
+  position: absolute;
+  top: 0;
+  left: calc((var(--h) - var(--ini)) / (var(--fin) - var(--ini)) * 100%);
+  transform: translateX(-50%);
+}
+.semana-eje i {
+  display: block;
+  width: 1px; height: 6px;
+  background: var(--linea);
+  margin: 0 auto 2px;
+}
+.semana-filas { display: grid; }
+.dia {
+  display: grid;
+  grid-template-columns: clamp(5rem, 12vw, 8.5rem) minmax(0, 1fr);
+  align-items: center;
+  gap: 0;
+  padding: 0.62rem 0;
+  border-bottom: 1px solid var(--linea-suave);
+}
+.dia-nombre {
+  font-family: var(--serif);
+  font-size: 1.28rem;
+  color: var(--tinta);
+  line-height: 1;
+}
+.dia-pista {
+  position: relative;
+  height: 1.55rem;
+  /* la rejilla de horas, como líneas finas */
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--linea-suave) 0 1px,
+    transparent 1px calc(100% / 16)
+  );
+}
+.franja {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: calc((var(--i) - var(--ini)) / (var(--fin) - var(--ini)) * 100%);
+  width: calc((var(--f) - var(--i)) / (var(--fin) - var(--ini)) * 100%);
+  height: 0.62rem;
+  border-radius: 999px;
+  transform-origin: left center;
+}
+.franja-dia { background: var(--tinta); }
+.franja-noche { background: var(--azafran); }
+.dia-cerrado .dia-pista { background-image: none; }
+.dia-cerrado-txt {
+  position: absolute;
+  left: 0; top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tinta-3);
+}
+.dia-cerrado .dia-nombre { color: var(--tinta-3); }
+.dia.es-hoy { background: rgba(217, 154, 43, 0.09); }
+.dia.es-hoy .dia-nombre { color: var(--azafran-2); }
+.dia.es-hoy .dia-nombre::after {
+  content: " · hoy";
+  font-family: var(--sans);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+.semana-leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  margin-top: 1.3rem;
+  font-size: 0.82rem;
+  color: var(--tinta-3);
+}
+.semana-leyenda span { display: flex; align-items: center; gap: 0.55rem; }
+.clave { width: 1.6rem; height: 0.5rem; border-radius: 999px; flex: none; }
+.clave-dia { background: var(--tinta); }
+.clave-noche { background: var(--azafran); }
+.horario-hoy {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: var(--tinta);
+  border-left: 2px solid var(--azafran);
+  padding-left: 0.9rem;
+}
+.horario-hoy[hidden] { display: none; }
+.horario-hoy strong { font-weight: 600; }
+
+/* ---------- El local ---------- */
+.local-cab { max-width: 48rem; margin-bottom: clamp(2rem, 5vh, 3rem); }
+.local-cab .titular { margin-bottom: 1.1rem; }
+.servicios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: clamp(2rem, 5vh, 3rem);
+}
+.servicios li {
+  font-size: 0.86rem;
+  font-weight: 500;
+  padding: 0.42rem 0.95rem;
+  border: 1px solid var(--linea);
+  border-radius: 999px;
+  color: var(--tinta-2);
+  background: var(--ceramica-2);
+}
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: clamp(0.9rem, 2vw, 1.4rem);
+}
+.galeria-hueco figcaption {
+  margin-top: 0.55rem;
+  font-size: 0.8rem;
+  color: var(--tinta-3);
+}
+.galeria-nota {
+  margin-top: 1.2rem;
+  font-size: 0.84rem;
+  color: var(--tinta-3);
+}
+.datos-huecos {
+  margin-top: clamp(2.2rem, 5vh, 3.2rem);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1.2rem;
+  border-top: 1px solid var(--linea-suave);
+  padding-top: 1.5rem;
+}
+.datos-huecos li { display: grid; gap: 0.25rem; }
+.datos-huecos strong { color: var(--azafran-2); font-size: 0.86rem; letter-spacing: 0.02em; }
+.datos-huecos span { font-size: 0.85rem; color: var(--tinta-3); }
+
+/* ---------- Reseñas ---------- */
+.resenas-nota {
+  text-align: center;
+  max-width: 42rem;
+  margin: 0 auto clamp(2.2rem, 5vh, 3.2rem);
+}
+.resenas-valor { line-height: 1; }
+.resenas-cifra {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  color: var(--azafran-2);
+  letter-spacing: -0.01em;
+}
+.resenas-sub { margin-top: 0.7rem; color: var(--tinta-3); }
+.resenas-sub strong { color: var(--azafran-2); font-weight: 600; }
+.resenas-aviso {
+  margin-top: 1.1rem;
+  font-size: 0.86rem;
+  color: var(--tinta-3);
+}
+.resenas-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.8rem);
+}
+.resenas-lista li {
+  border: 1px dashed var(--madera);
+  border-radius: 18px;
+  padding: 1.5rem;
+  background: var(--ceramica-2);
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+.resenas-lista blockquote p {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  color: var(--tinta-3);
+  line-height: 1.35;
+}
+.resena-firma {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--madera);
+  font-weight: 600;
+}
+
+/* ---------- Contacto ---------- */
+.contacto-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+  gap: clamp(2rem, 6vw, 4.5rem);
+  align-items: start;
+}
+.contacto-texto .titular { margin-bottom: 1.1rem; }
+.contacto-botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin: 1.6rem 0 2rem;
+}
+.contacto-datos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1.2rem 2rem;
+  border-top: 1px solid var(--linea);
+  padding-top: 1.5rem;
+}
+.contacto-datos dt {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--madera);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.contacto-datos dd { margin: 0; font-size: 0.97rem; line-height: 1.5; }
+
+.mapa-caja {
+  position: relative;
+  aspect-ratio: 4 / 3.4;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--linea);
+  background:
+    repeating-linear-gradient(135deg, rgba(201, 176, 140, 0.12) 0 12px, transparent 12px 24px),
+    var(--ceramica-2);
+}
+.mapa-caja iframe { width: 100%; height: 100%; border: 0; display: block; }
+.map-consent {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 0.6rem;
+  padding: 2rem;
+  text-align: center;
+}
+.map-consent-t {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  color: var(--tinta);
+  border-bottom: 1px solid var(--azafran);
+  padding-bottom: 0.2rem;
+}
+.map-consent-s {
+  font-size: 0.82rem;
+  color: var(--tinta-3);
+  max-width: 30ch;
+  line-height: 1.45;
+}
+.map-consent:hover .map-consent-t { color: var(--azafran-2); }
+.mapa-pie { margin-top: 0.8rem; font-size: 0.85rem; color: var(--tinta-3); }
+
+/* ---------- Pie ---------- */
+.pie {
+  background: var(--tinta);
+  color: var(--ceramica);
+  padding: clamp(2.8rem, 7vh, 4.5rem) var(--gutter);
+  display: grid;
+  gap: 1.6rem;
+}
+.pie > * { max-width: var(--ancho); margin-inline: auto; width: 100%; }
+.pie-marca { display: flex; align-items: center; gap: 1rem; }
+.pie-marca img { width: 40px; height: 40px; }
+.pie-marca p { font-size: 1rem; line-height: 1.4; }
+.pie-marca strong { font-family: var(--serif); font-weight: 400; font-size: 1.35rem; }
+.pie-marca em { font-family: var(--serif); font-style: italic; color: var(--azafran); }
+.pie-nav { display: flex; flex-wrap: wrap; gap: 0.8rem 1.6rem; }
+.pie-nav a { font-size: 0.88rem; text-decoration: none; color: rgba(245, 242, 236, 0.78); }
+.pie-nav a:hover { color: var(--azafran); }
+.pie-nota {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: rgba(245, 242, 236, 0.55);
+  border-top: 1px solid rgba(245, 242, 236, 0.14);
+  padding-top: 1.2rem;
+}
+.pie-nota strong { color: var(--azafran); font-weight: 600; }
+
+/* ---------- Botón flotante ---------- */
+.call-fab {
+  position: fixed;
+  right: 1rem; bottom: 1rem;
+  z-index: 95;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--azafran);
+  color: var(--tinta);
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 12px 30px -12px rgba(20, 20, 20, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease), visibility 0.35s;
+}
+.call-fab.is-visible { opacity: 1; visibility: visible; transform: none; }
+
+/* ============================================================
+   Estados de movimiento.
+   Todo lo que empieza "oculto" vive bajo html.has-motion, que
+   solo activa el JS. Si GSAP no carga (bloqueador, red caída),
+   la página se ve entera y funciona.
+   ============================================================ */
+html.has-motion [data-seccion] { clip-path: circle(calc(var(--rev) * 1%) at 50% 42%); }
+html.has-motion [data-seccion] { --rev: 0; }
+html.has-motion [data-seccion].ya-visible { clip-path: none; --rev: 50; }
+
+html.has-motion .plato-recorte { --rev: 0; }
+html.has-motion .hero-izq,
+html.has-motion .hero-der,
+html.has-motion .hero-scroll,
+html.has-motion .plato-pie { opacity: 0; }
+/* cada carácter es inline-block para poder animarlo, así que la palabra
+   tiene que ser también inline-block y no romperse: si no, el navegador
+   parte "semana" en "se / mana". */
+html.has-motion .split-word { display: inline-block; white-space: nowrap; }
+html.has-motion .split-char { display: inline-block; will-change: transform; }
+/* los caracteres suben desde debajo de su línea: el recorte va en la palabra */
+html.has-motion [data-split-char] { overflow: hidden; padding-bottom: 0.12em; }
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 1000px) {
+  .nav { display: none; }
+  .btn-nav { display: none; }
+  .nav-toggle { display: block; margin-left: auto; }
+  .marca { margin-right: 0; }
+}
+
+@media (max-width: 900px) {
+  .cocina-grid,
+  .arroces-grid,
+  .desayunos,
+  .contacto-grid { grid-template-columns: minmax(0, 1fr); }
+
+  .dietas { grid-template-columns: minmax(0, 1fr); text-align: left; }
+  .dietas-marca { justify-self: start; }
+
+  /* el plato fijo deja paso a una miniatura por tarjeta */
+  .arroces-media { display: none; }
+  .arroz-carta {
+    position: static;
+    top: auto;
+    margin-bottom: 1.2rem;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "mini num"
+      "mini nombre"
+      "mini peso"
+      "desc desc"
+      "precio precio";
+    column-gap: 1.2rem;
+    align-items: center;
+  }
+  .arroz-mini {
+    display: block;
+    grid-area: mini;
+    width: clamp(4.5rem, 20vw, 7rem);
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px var(--linea), 0 0 0 5px var(--ceramica-2), 0 0 0 6px rgba(217, 154, 43, 0.4);
+  }
+  .arroz-num { grid-area: num; align-self: end; }
+  .arroz-nombre { grid-area: nombre; }
+  .arroz-peso { grid-area: peso; align-self: start; }
+  .arroz-desc { grid-area: desc; margin-top: 0.8rem; }
+  .arroz-carta .precio { grid-area: precio; }
+
+  .desayunos-hueco { max-width: 20rem; justify-self: start; }
+
+  .cocina-cierre { grid-template-columns: minmax(0, 1fr); justify-items: start; }
+  .carta-platos { grid-template-columns: minmax(0, 1fr); gap: 2.2rem; }
+  .carta-plato { --plato: min(62vw, 17rem); }
+}
+
+@media (max-width: 760px) {
+  :root { --nav-h: 3.9rem; }
+
+  .hero { min-height: auto; padding-bottom: 3rem; }
+  .hero-lienzo {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "plato"
+      "palabra"
+      "izq"
+      "der";
+    justify-items: center;
+    row-gap: 1.6rem;
+  }
+  /* a partir de aquí el círculo manda: ocupa el ancho y el
+     wordmark pasa debajo (requisito del brief a 400 px) */
+  .hero-plato { --plato: min(86vw, 24rem); }
+  .hero-palabra {
+    margin-bottom: 0;
+    margin-top: 2.6rem;
+    font-size: clamp(3rem, 17vw, 6rem);
+  }
+  .hero-izq, .hero-der {
+    justify-self: center;
+    text-align: center;
+    max-width: 34ch;
+  }
+  .hero-cta { justify-content: center; }
+  .hero-scroll { display: none; }
+  .plato-pie { bottom: -2.6rem; white-space: normal; width: 90%; text-align: center; }
+
+  .semana-eje { margin-left: 0; }
+  .dia {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.35rem;
+    padding: 0.85rem 0;
+  }
+  .dia-cerrado-txt { position: static; transform: none; display: block; }
+  .dia-cerrado .dia-pista { height: auto; }
+
+
+
+  .pie-marca { flex-direction: column; align-items: flex-start; gap: 0.7rem; }
+}
+
+@media (max-width: 420px) {
+  body { font-size: 1rem; }
+  /* 85vw + el aro exterior (7,4 % por lado) = 99 vw: cabe justo */
+  .hero-plato { --plato: min(85vw, 22rem); }
+  .cabecera { gap: 0.6rem; padding-inline: 1rem; }
+  .arroz-carta {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "mini" "num" "nombre" "peso" "desc" "precio";
+    justify-items: start;
+  }
+  .arroz-mini { margin-bottom: 0.9rem; }
+  .call-fab { font-size: 0.86rem; padding: 0.65rem 1rem; }
+}
+
+/* ============================================================
+   Movimiento reducido: los círculos ya están destapados y
+   nada gira. Se respeta sin excepciones.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html.has-motion [data-seccion],
+  html.has-motion .plato-recorte { clip-path: none; --rev: 50; }
+  html.has-motion .plato-recorte { clip-path: circle(50% at 50% 50%); }
+  html.has-motion .hero-izq,
+  html.has-motion .hero-der,
+  html.has-motion .hero-scroll,
+  html.has-motion .plato-pie { opacity: 1; }
+  .marquesina-pista { animation: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

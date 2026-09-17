@@ -1,0 +1,144 @@
+{
+  "url": "http://localhost:8231/",
+  "consola": [],
+  "fallos": [],
+  "pruebas": [
+    {
+      "prueba": "el circulo del hero queda destapado",
+      "ok": true,
+      "extra": {
+        "clipPath": "circle(50% at 50% 50%)"
+      }
+    },
+    {
+      "prueba": "el aviso de cookies aparece",
+      "ok": true,
+      "extra": null
+    },
+    {
+      "prueba": "el boton \"Entendido\" cierra el aviso",
+      "ok": true,
+      "extra": null
+    },
+    {
+      "prueba": "la marca carga (SVG)",
+      "ok": true,
+      "extra": null
+    },
+    {
+      "prueba": "la paellera cruza de imagen al avanzar las tarjetas",
+      "ok": true,
+      "extra": {
+        "de": "1",
+        "a": "3",
+        "indice": "03"
+      }
+    },
+    {
+      "prueba": "el indice acompana a la imagen",
+      "ok": true,
+      "extra": {
+        "indice": "03",
+        "activa": "3"
+      }
+    },
+    {
+      "prueba": "el dia de hoy queda marcado en la semana",
+      "ok": true,
+      "extra": {
+        "dia": "Jueves"
+      }
+    },
+    {
+      "prueba": "la franja de 9:00-17:00 cae donde debe",
+      "ok": true,
+      "extra": {
+        "ini": 0.0625,
+        "fin": 0.5625
+      }
+    },
+    {
+      "prueba": "la franja de 19:30-23:30 cae donde debe",
+      "ok": true,
+      "extra": {
+        "ini": 0.71875,
+        "fin": 0.96875
+      }
+    },
+    {
+      "prueba": "sin iframe de Google antes del consentimiento",
+      "ok": true,
+      "extra": null
+    },
+    {
+      "prueba": "el mapa se monta al pulsar, sin API key",
+      "ok": true,
+      "extra": {
+        "src": "https://www.google.com/maps?q=Xenlleiro%2C%20R%C3%BAa%20Capela%208%2C%2015142%20"
+      }
+    },
+    {
+      "prueba": "sin desbordamiento horizontal en escritorio",
+      "ok": true,
+      "extra": {
+        "desborde": 0
+      }
+    },
+    {
+      "prueba": "los datos que faltan estan marcados a la vista",
+      "ok": true,
+      "extra": {
+        "marcas": 41
+      }
+    },
+    {
+      "prueba": "con movimiento reducido el circulo ya esta destapado",
+      "ok": true,
+      "extra": {
+        "clipPath": "circle(50% at 50% 50%)"
+      }
+    },
+    {
+      "prueba": "con movimiento reducido el plato no gira",
+      "ok": true,
+      "extra": {
+        "transform": "none"
+      }
+    },
+    {
+      "prueba": "a 400 px el circulo va arriba y el wordmark debajo",
+      "ok": true,
+      "extra": {
+        "platoTop": 97,
+        "palabraTop": 504,
+        "platoAncho": 340
+      }
+    },
+    {
+      "prueba": "a 400 px el circulo ocupa casi todo el ancho",
+      "ok": true,
+      "extra": {
+        "platoTop": 97,
+        "palabraTop": 504,
+        "platoAncho": 340
+      }
+    },
+    {
+      "prueba": "sin desbordamiento horizontal a 400 px",
+      "ok": true,
+      "extra": {
+        "desborde": 0
+      }
+    },
+    {
+      "prueba": "sin errores de consola",
+      "ok": true,
+      "extra": []
+    },
+    {
+      "prueba": "sin recursos que fallen",
+      "ok": true,
+      "extra": []
+    }
+  ]
+}
