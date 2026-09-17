@@ -327,6 +327,76 @@
     }
   }
 
+
+  /* ---------- Cortina de entrada (preloader) ----------
+     Gesto propio: la capa de azafran se extiende desde el centro hacia los
+     dos lados (la capa fina), sube el wordmark y despues SE RETIRA EL
+     PLATO: el panel se ladea unos grados y sale por abajo a la izquierda,
+     como cuando te retiran el plato de la mesa. No destapa ningun circulo
+     a proposito: eso ya lo hace el plato del hero.
+
+     Dos momentos distintos:
+       · alAbrirse(fn) → cuando el plato EMPIEZA a retirarse, para que el
+         hero ya se este destapando cuando asoma la pagina.
+       · retirar()     → al terminar: quita el nodo, devuelve el scroll y
+         refresca ScrollTrigger, que midio con overflow:hidden.
+
+     Aqui no se para Lenis: su instancia vive dentro de initLenis() y no
+     sale de ahi. Con el overflow:hidden del html basta para que no se
+     pueda mover la pagina mientras la cortina esta puesta. */
+  const cortina = (function initCortina() {
+    const el = $("[data-cortina]");
+    const espera = [];
+    let abierta = false;
+    let fuera = false;
+
+    function abrir() {
+      if (abierta) return;
+      abierta = true;
+      espera.splice(0).forEach((fn) => { try { fn(); } catch (e) {} });
+    }
+    function retirar() {
+      abrir();
+      if (fuera) return;
+      fuera = true;
+      if (el) el.hidden = true;
+      html.classList.remove("cortina-puesta");
+      if (gsapReady) ScrollTrigger.refresh();
+    }
+
+    const api = { alAbrirse: (fn) => (abierta ? fn() : espera.push(fn)) };
+    if (!el || !motion) { retirar(); return api; }
+
+    html.classList.add("cortina-puesta");
+
+    const plato = $(".cortina-plato", el);
+    const centro = $(".cortina-centro", el);
+    const wordmark = $(".cortina-wordmark", el);
+    const capa = $(".cortina-capa", el);
+    const pie = $(".cortina-pie", el);
+    const RETIRA = 1.3;
+
+    const tl = gsap.timeline({ onComplete: retirar });
+    if (wordmark) tl.to(wordmark, { opacity: 1, duration: 0.8, ease: "power2.out" }, 0.1);
+    if (capa) tl.to(capa, { scaleX: 1, duration: 0.85, ease: "power2.inOut" }, 0.4);
+    if (pie) tl.to(pie, { opacity: 1, duration: 0.6, ease: "power2.out" }, 0.75);
+
+    tl.add(abrir, RETIRA);
+    if (centro) tl.to(centro, { opacity: 0, duration: 0.35, ease: "power2.in" }, RETIRA);
+    if (plato) {
+      /* power2.inOut y no expo: con expo el panel se pasa medio segundo casi
+         quieto y luego desaparece de golpe, y el gesto de retirar el plato
+         no llega a leerse. */
+      tl.to(plato, {
+        rotation: 7, xPercent: -14, yPercent: 112,
+        duration: 1.15, ease: "power2.inOut", transformOrigin: "50% 50%"
+      }, RETIRA + 0.05);
+    }
+
+    setTimeout(retirar, 5200);
+    return api;
+  })();
+
   /* ---------- Hero ----------
      El círculo se destapa desde el centro (1,1 s) y el resto entra
      detrás. La palabra "Xenlleiro" sube letra a letra. */
@@ -335,7 +405,10 @@
     const img = $(".hero-plato img");
     if (!motion) return;
 
-    const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
+    const tl = gsap.timeline({ defaults: { ease: "power2.out" }, paused: true });
+    /* el plato del hero no se destapa hasta que se retira el de la cortina:
+       lo primero que se ve de la pagina ya esta en movimiento */
+    cortina.alAbrirse(() => tl.play());
     if (recorte) {
       tl.fromTo(recorte, { "--rev": 0 }, { "--rev": 50, duration: 1.15, ease: "power2.inOut" }, 0);
     }

@@ -229,6 +229,43 @@ hr { border: 0; }
 }
 .cookie-ack:hover { background: var(--ceramica); }
 
+/* ---------- Cortina de entrada (preloader) ----------
+   El lenguaje de la casa es cenital: se mira desde arriba y el circulo es
+   el plato. Aqui la capa de azafran se EXTIENDE desde el centro hacia los
+   dos lados (la capa fina), sube el wordmark y despues SE RETIRA EL PLATO:
+   el panel se ladea unos grados y sale por abajo a la izquierda, como
+   cuando te retiran el plato de la mesa.
+   A proposito no destapa ningun circulo: eso ya lo hace el plato del hero
+   y repetirlo restaria.
+   El panel no lleva el color en .cortina sino en .cortina-plato, o al
+   ladearse se veria el panel por las esquinas en vez de la pagina.
+   Ojo: .cortina usa display:grid, asi que [hidden] necesita su regla. */
+.cortina { position: fixed; inset: 0; z-index: 400; display: grid; overflow: hidden; }
+.cortina[hidden] { display: none; }
+html.cortina-puesta { overflow: hidden; }
+
+/* se pasa un poco de la ventana por los cuatro lados para que al ladearse
+   no asome una esquina antes de tiempo. Poco: con mucho sobreancho hay que
+   recorrer demasiado antes de que se vea nada moverse. */
+.cortina-plato {
+  position: absolute; inset: -8%;
+  display: grid; place-items: center;
+  background: radial-gradient(120% 100% at 50% 42%, var(--tinta-2) 0%, var(--tinta) 58%, #0B0B0B 100%);
+  will-change: transform;
+}
+
+.cortina-centro { display: grid; justify-items: center; gap: 1.1rem; padding: 0 1.5rem; text-align: center; }
+.cortina-wordmark { width: min(58vw, 26rem); height: auto; filter: invert(1); }
+.cortina-capa { display: block; width: min(40vw, 240px); height: 2px; background: var(--azafran); transform-origin: 50% 50%; }
+.cortina-pie { font-size: .68rem; font-weight: 700; letter-spacing: .32em; text-transform: uppercase; color: rgba(245,242,236,.55); }
+
+html.has-motion .cortina-wordmark { opacity: 0; }
+html.has-motion .cortina-capa { transform: scaleX(0); }
+html.has-motion .cortina-pie { opacity: 0; }
+
+/* con movimiento reducido no debe verse ni un fotograma */
+@media (prefers-reduced-motion: reduce) { .cortina { display: none; } }
+
 /* ---------- Cabecera ---------- */
 .cabecera {
   position: fixed;

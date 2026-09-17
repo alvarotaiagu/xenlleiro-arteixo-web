@@ -60,10 +60,26 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css?v=1">
+<!-- Sin JavaScript no hay quien retire el plato: mejor no ensenarla. -->
+<noscript><style>.cortina { display: none !important; }</style></noscript>
 </head>
 <body>
 
 <a class="salto" href="#carta">Saltar a la carta</a>
+
+<!-- Cortina de entrada: se extiende la capa y despues se retira el plato.
+     Se retira SIEMPRE desde js/main.js; el script de abajo es la red de
+     seguridad por si main.js no llega a cargarse. -->
+<div class="cortina" data-cortina aria-hidden="true">
+  <div class="cortina-plato">
+    <div class="cortina-centro">
+      <img class="cortina-wordmark" src="assets/img/brand/xenlleiro-wordmark.svg" alt="" width="3169" height="840">
+      <span class="cortina-capa" aria-hidden="true"></span>
+      <p class="cortina-pie">Arroces &middot; Arteixo</p>
+    </div>
+  </div>
+</div>
+<script>setTimeout(function(){var c=document.querySelector('[data-cortina]');if(c&&!c.hidden){c.hidden=true;document.documentElement.classList.remove('cortina-puesta');}},6000);</script>
 
 <div class="cookie-banner" hidden>
   <p>Esta web no usa cookies de terceros. Solo guardamos en tu navegador que ya viste este aviso; el mapa de Google se carga únicamente si lo pides tú.</p>

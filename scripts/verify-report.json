@@ -1,5 +1,5 @@
 {
-  "url": "https://alvarotaiagu.github.io/xenlleiro-arteixo-web/",
+  "url": "http://127.0.0.1:8809/",
   "consola": [],
   "fallos": [],
   "pruebas": [
@@ -46,7 +46,7 @@
       "prueba": "el dia de hoy queda marcado en la semana",
       "ok": true,
       "extra": {
-        "dia": "Jueves"
+        "dia": "Viernes"
       }
     },
     {
