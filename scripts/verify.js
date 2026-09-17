@@ -188,6 +188,52 @@ async function aSeccion(page, sel) {
   const giroR = await pageR.evaluate(() => getComputedStyle(document.querySelector('.hero-plato .plato-recorte')).transform);
   ok('con movimiento reducido el circulo ya esta destapado', /circle\((?!0)/.test(revR) || revR === 'none', { clipPath: revR });
   ok('con movimiento reducido el plato no gira', giroR === 'none' || giroR === 'matrix(1, 0, 0, 1, 0, 0)', { transform: giroR });
+
+  /* Las CINCO tarjetas tienen que llegar a fijarse arriba, la ultima
+     incluida. Se mide aqui, sin Lenis, porque asi el scroll es exacto y
+     lo que se comprueba es el sticky de CSS, sin ruido de GSAP.
+     Regresion de: la ultima tarjeta pasaba de largo sin fijarse nunca,
+     porque el recorrido de la lista estaba puesto como padding (queda
+     fuera de la caja de contenido, que es el bloque contenedor del
+     sticky) en vez de como contenido. */
+  const pila = await pageR.evaluate(() => {
+    const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    const navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--nav-h")) * rem;
+    return [...document.querySelectorAll(".arroz-carta")].map((c, i) => ({
+      base: c.getBoundingClientRect().top + window.scrollY,
+      tope: navH + 3.2 * rem + i * 14,
+    }));
+  });
+  const sueltas = [];
+  const desparejadas = [];
+  for (let i = 0; i < pila.length; i++) {
+    for (const extra of [0, 150, 300]) {
+      await pageR.evaluate((y) => window.scrollTo(0, y), pila[i].base - pila[i].tope + extra);
+      await pageR.waitForTimeout(200);
+      const r = await pageR.evaluate((k) => {
+        const c = document.querySelectorAll(".arroz-carta")[k];
+        const act = document.querySelector(".arroz-img.is-activa");
+        return {
+          top: c.getBoundingClientRect().top,
+          activa: act ? act.dataset.arroz : null,
+          indice: document.querySelector(".arroces-indice-n").textContent.trim(),
+        };
+      }, i);
+      if (Math.abs(r.top - pila[i].tope) > 3) {
+        sueltas.push({ tarjeta: i + 1, extra: extra, top: Math.round(r.top), tope: Math.round(pila[i].tope) });
+      }
+      /* cambiar de imagen no es "movimiento": es contenido. Con movimiento
+         reducido el cruce se hace instantaneo, pero la paellera y el indice
+         tienen que seguir a la tarjeta que esta arriba, no quedarse en el 01. */
+      if (extra > 0 && (r.activa !== String(i + 1) || r.indice !== String(i + 1).padStart(2, "0"))) {
+        desparejadas.push({ tarjeta: i + 1, extra: extra, activa: r.activa, indice: r.indice });
+      }
+    }
+  }
+  ok("las cinco tarjetas de arroz llegan a fijarse arriba", sueltas.length === 0, sueltas.slice(0, 4));
+  ok("la paellera y el indice siguen a la tarjeta con movimiento reducido", desparejadas.length === 0, desparejadas.slice(0, 4));
+  await pageR.evaluate(() => window.scrollTo(0, 0));
+  await pageR.waitForTimeout(300);
   await pageR.screenshot({ path: path.join(SHOTS, '16-reduced-motion.png') });
   await ctxR.close();
 

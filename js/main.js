@@ -18,6 +18,7 @@
   const html = document.documentElement;
   if (gsapReady) gsap.registerPlugin(ScrollTrigger);
   if (motion) html.classList.add("has-motion");
+  if (!gsapReady) html.classList.add("sin-gsap");
 
   const $ = (sel, ctx) => (ctx || document).querySelector(sel);
   const $$ = (sel, ctx) => Array.from((ctx || document).querySelectorAll(sel));
@@ -226,7 +227,7 @@
       imgs.forEach((img) => img.classList.toggle("is-activa", +img.dataset.arroz === n));
       if (indice) indice.textContent = String(n).padStart(2, "0");
     }
-    if (!motion) return;
+    if (!gsapReady) return;   // sin ScrollTrigger no hay a que engancharse
 
     cartas.forEach((carta, i) => {
       ScrollTrigger.create({

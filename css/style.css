@@ -582,6 +582,15 @@ section > .rotulo,
    Nada de min-height en el <li> con la tarjeta pegajosa dentro:
    eso deja tarjetas fantasma. */
 .arroz-pila { display: block; padding-top: 0.5rem; }
+/* Recorrido extra para que la ULTIMA tarjeta llegue a fijarse.
+   Tiene que ser CONTENIDO, no padding ni margen:
+   · el bloque contenedor de un sticky es la caja de CONTENIDO del padre,
+     asi que un padding-bottom en la lista queda fuera y no da recorrido;
+   · un margin-bottom en la ultima tarjeta tampoco sirve: se colapsa fuera
+     de la lista y, ademas, el margen del propio elemento se descuenta de
+     su recorrido (la tarjeta se suelta en contentBottom - alto - margen).
+   Una caja generada dentro de la lista si alarga la caja de contenido. */
+.arroz-pila::after { content: ""; display: block; height: 46vh; }
 .arroz-carta {
   position: sticky;
   top: calc(var(--nav-h) + 3.2rem + var(--i, 0) * 14px);
@@ -594,8 +603,31 @@ section > .rotulo,
   display: grid;
   gap: 0.35rem;
 }
+/* La ultima tarjeta tambien necesita recorrido por debajo: sin el, el <ol>
+   termina justo en su borde inferior y position:sticky no tiene donde
+   fijarla (pasaba de largo sin llegar nunca al tope).
+   OJO: ponerle margin-bottom a la ultima tarjeta NO sirve, porque ese
+   margen se COLAPSA fuera del <ol> (la lista no tiene padding inferior ni
+   borde, asi que no lo contiene) y la caja del padre no crece. El recorrido
+   tiene que ser padding de la lista, que no colapsa: va en .arroz-pila. */
 .arroz-carta:last-child { margin-bottom: 0; }
 .arroz-mini { display: none; }
+
+/* Si GSAP no carga no hay quien cruce las imagenes, y una paellera fija
+   mostrando el arroz 01 junto a la tarjeta 05 seria sencillamente falsa.
+   En ese caso se retira y cada tarjeta enseña su propia miniatura. */
+html.sin-gsap .arroces-media { display: none; }
+html.sin-gsap .arroces-grid { grid-template-columns: minmax(0, 1fr); }
+html.sin-gsap .arroz-mini {
+  display: block;
+  width: clamp(4.5rem, 14vw, 6.5rem);
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 0.9rem;
+  box-shadow: 0 0 0 1px var(--linea), 0 0 0 5px var(--ceramica-2), 0 0 0 6px rgba(217, 154, 43, 0.4);
+}
 .arroz-num {
   font-family: var(--serif);
   font-size: 1.1rem;
@@ -1162,6 +1194,7 @@ html.has-motion [data-split-char] { overflow: hidden; padding-bottom: 0.12em; }
 
   /* el plato fijo deja paso a una miniatura por tarjeta */
   .arroces-media { display: none; }
+  .arroz-pila::after { display: none; }
   .arroz-carta {
     position: static;
     top: auto;

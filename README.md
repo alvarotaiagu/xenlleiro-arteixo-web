@@ -70,7 +70,7 @@ python scripts/process_photos.py                 # descarga, recorta y gradúa
 NODE_PATH=/c/Users/alvar/node_modules node scripts/generate_og.js      # iconos + tarjeta OG
 NODE_PATH=/c/Users/alvar/node_modules node scripts/contact_sheets.js   # hojas de contacto de Pexels
 python -m http.server 8231
-NODE_PATH=/c/Users/alvar/node_modules node scripts/verify.js           # 20 comprobaciones
+NODE_PATH=/c/Users/alvar/node_modules node scripts/verify.js           # 22 comprobaciones
 ```
 
 ## Decisiones técnicas que conviene no deshacer
@@ -94,6 +94,18 @@ NODE_PATH=/c/Users/alvar/node_modules node scripts/verify.js           # 20 comp
   `margin-bottom` como recorrido y un `top` escalonado (14 px por tarjeta)
   para que se vea el canto de las de debajo. Nada de `min-height` en el
   `<li>` con una tarjeta pegajosa dentro: eso deja tarjetas fantasma.
+- **El recorrido de la última tarjeta va en `.arroz-pila::after`**, y no es
+  un capricho. El bloque contenedor de un `position: sticky` es la **caja
+  de contenido** del padre, así que:
+  - un `padding-bottom` en el `<ol>` queda **fuera** de esa caja y no da
+    ni un píxel de recorrido;
+  - un `margin-bottom` en la última tarjeta se **colapsa** fuera de la
+    lista y, además, el margen del propio elemento se **descuenta** de su
+    recorrido (la tarjeta se suelta en `contentBottom − alto − margen`;
+    por eso la 04 también se soltaba antes de tiempo).
+
+  Una caja generada dentro de la lista sí alarga la caja de contenido, y
+  es lo único que funciona sin tocar el HTML.
 - **`verify.js` recorre con la rueda del ratón, no con `window.scrollTo`.**
   Con Lenis, `scrollTo` no dispara los ScrollTrigger del final de la página.
 
@@ -114,6 +126,18 @@ NODE_PATH=/c/Users/alvar/node_modules node scripts/verify.js           # 20 comp
    sustituyó la variable por un `<img>` real.
 5. Desbordamiento horizontal de 2 px a 400 px: el aro exterior del plato
    sobresale un 7,4 % por lado y el círculo medía 92 vw.
+6. **La última tarjeta de la pila (arroz vegano) nunca llegaba a fijarse
+   arriba**: pasaba de largo. Medido, se quedaba 1 frame en el tope frente
+   a decenas las otras. El recorrido bajo la pila tiene que ser
+   **contenido**, y ni el `padding-bottom` del `<ol>` ni un `margin-bottom`
+   en la tarjeta valen (ver abajo). Ahora lo da `.arroz-pila::after`.
+7. Con **movimiento reducido** la paellera se quedaba en el arroz 01 y el
+   índice decía «01 / 05» junto a la tarjeta 05: el cruce de imagen estaba
+   detrás de la misma condición que las animaciones. Cambiar de imagen no
+   es movimiento, es **contenido**; ahora solo depende de que exista
+   ScrollTrigger y, con `prefers-reduced-motion`, el cambio es instantáneo.
+   Si GSAP no carga en absoluto, se retira la paellera fija (que si no
+   mentiría) y cada tarjeta enseña su propia miniatura.
 
 ---
 
@@ -207,11 +231,20 @@ WhatsApp (617 00 46 70).
 
 ## Verificación
 
-`scripts/verify.js` pasa **20/20** en Chromium: destapado del hero,
+`scripts/verify.js` pasa **22/22** en Chromium: destapado del hero,
 botón del aviso de cookies, mapa bajo demanda sin API key, cruce de
 imágenes de los arroces sincronizado con el índice, posición exacta de las
 franjas horarias (9:00 → 6,25 % del eje 8–24; 19:30 → 71,875 %), marcado
-del día de hoy, movimiento reducido, orden y ancho del hero a 400 px, cero
-desbordamiento horizontal, cero errores de consola y cero recursos caídos.
+del día de hoy, movimiento reducido, **que las cinco tarjetas de arroz
+lleguen a fijarse arriba** y **que la paellera y el índice sigan a la
+tarjeta de arriba también con movimiento reducido**, orden y ancho del hero
+a 400 px, cero desbordamiento horizontal, cero errores de consola y cero
+recursos caídos.
+
+Las dos pruebas de la pila corren en el contexto de movimiento reducido a
+propósito: sin Lenis el scroll es exacto y lo que se mide es el `sticky` de
+CSS, sin ruido de GSAP. Se comprobó además que **fallan** si se reintroduce
+el bug (volviendo a poner el recorrido como `padding-bottom`), para que no
+sean pruebas que pasan en vacío.
 Las capturas están en `screenshots/` y el informe en
 `scripts/verify-report.json`.

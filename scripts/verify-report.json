@@ -1,5 +1,5 @@
 {
-  "url": "https://alvarotaiagu.github.io/xenlleiro-arteixo-web/",
+  "url": "http://localhost:8231/",
   "consola": [],
   "fallos": [],
   "pruebas": [
@@ -104,6 +104,16 @@
       "extra": {
         "transform": "none"
       }
+    },
+    {
+      "prueba": "las cinco tarjetas de arroz llegan a fijarse arriba",
+      "ok": true,
+      "extra": []
+    },
+    {
+      "prueba": "la paellera y el indice siguen a la tarjeta con movimiento reducido",
+      "ok": true,
+      "extra": []
     },
     {
       "prueba": "a 400 px el circulo va arriba y el wordmark debajo",
